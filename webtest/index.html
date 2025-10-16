@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cXAF Interface (Test)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: 1px solid #999;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #f5f5f5;
+    }
+    button:hover {
+      background-color: #eaeaea;
+    }
+    input {
+      padding: 6px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    section {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>cXAF Interface (Test)</h1>
+
+  <button id="connectButton">Connect Wallet</button>
+  <p id="connectionStatus">Not connected</p>
+
+  <section>
+    <h2>Read</h2>
+    <label>Contract address:</label>
+    <input type="text" id="contractAddress" placeholder="contract address" />
+    <button>Load</button>
+    <br>
+    <button>Get Decimals</button>
+    <button>Get My Balance</button>
+  </section>
+
+  <section>
+    <h2>Actions</h2>
+    <label>Mint amount (raw units, 6 decimals):</label>
+    <input type="text" id="mintAmount" />
+    <label>FiatRef:</label>
+    <input type="text" id="fiatRef" />
+    <br>
+    <button>Mint (only minter)</button>
+  </section>
+
+  <script>
+    const connectButton = document.getElementById("connectButton");
+    const statusText = document.getElementById("connectionStatus");
+
+    // Fonction pour se connecter à MetaMask
+    async function connectWallet() {
+      if (typeof window.ethereum === "undefined") {
+        alert("MetaMask non détecté. Veuillez installer l'extension Chrome.");
+        return;
+      }
+
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        const account = accounts[0];
+        if (account) {
+          statusText.textContent = "Connected";
+          statusText.style.color = "green";
+        } else {
+          statusText.textContent = "Not connected";
+          statusText.style.color = "red";
+        }
+      } catch (error) {
+        console.error(error);
+        statusText.textContent = "Not connected";
+        statusText.style.color = "red";
+      }
+    }
+
+    connectButton.addEventListener("click", connectWallet);
+  </script>
+</body>
+</html>
