@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XAF Interface (Test)</title>
-  <link rel="stylesheet" href="./css/style.css" />
-  <!-- Import de ethers.js depuis un CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Connexion / Création de compte</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>XAF Interface (Test)</h1>
+  <h1>Mon Application</h1>
 
-  <button id="connectButton">Connect Wallet</button>
-  <p id="connectionStatus">Not connected</p>
-  <p id="walletAddress"></p>
-  <p id="walletBalance"></p>
-  <p id="networkName"></p>
+  <div id="form-container">
+    <!-- Formulaire de connexion -->
+    <form id="login-form">
+      <h2>Connexion</h2>
+      <input type="email" id="login-email" placeholder="Email" required />
+      <input type="password" id="login-password" placeholder="Mot de passe" required />
+      <button type="submit">Se connecter</button>
+      <p>Pas encore de compte ? <a href="#" id="show-register">Créer un compte</a></p>
+    </form>
 
-  <script src="./javascript/connectwallet.js"></script>
-  <script src="./javascript/tokenReader.js"></script>
+    <!-- Formulaire de création de compte -->
+    <form id="register-form" style="display:none;">
+      <h2>Créer un compte</h2>
+      <input type="text" id="register-name" placeholder="Nom complet" required />
+      <input type="email" id="register-email" placeholder="Email" required />
+      <input type="password" id="register-password" placeholder="Mot de passe" required />
+      <button type="submit">Créer un compte</button>
+      <p>Déjà un compte ? <a href="#" id="show-login">Se connecter</a></p>
+    </form>
+  </div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
