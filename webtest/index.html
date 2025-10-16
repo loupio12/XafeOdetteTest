@@ -1,50 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XAF Interface (Test)</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #fafafa;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 8px 12px;
-      margin: 5px;
-      border: 1px solid #999;
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: #f5f5f5;
-      transition: 0.2s;
-    }
-    button:hover {
-      background-color: #eaeaea;
-    }
-    p {
-      margin: 6px 0;
-    }
-    #connectionStatus {
-      font-weight: bold;
-    }
-    #walletAddress {
-      color: #333;
-      font-family: monospace;
-    }
-    #walletBalance {
-      color: #555;
-      font-weight: bold;
-    }
-    #networkName {
-      color: #777;
-      font-style: italic;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/style.css" />
+  <!-- Import de ethers.js depuis un CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
   <h1>XAF Interface (Test)</h1>
@@ -55,78 +17,7 @@
   <p id="walletBalance"></p>
   <p id="networkName"></p>
 
-  <script>
-    const connectButton = document.getElementById("connectButton");
-    const statusText = document.getElementById("connectionStatus");
-    const walletAddress = document.getElementById("walletAddress");
-    const walletBalance = document.getElementById("walletBalance");
-    const networkName = document.getElementById("networkName");
-
-    async function connectWallet() {
-      if (typeof window.ethereum === "undefined") {
-        alert("⚠️ MetaMask non détecté. Ouvre cette page via http://localhost et vérifie l’extension.");
-        return;
-      }
-
-      try {
-        // 🔹 Connexion du wallet
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-        const account = accounts[0];
-
-        if (account) {
-          statusText.textContent = "Connected";
-          statusText.style.color = "green";
-          walletAddress.textContent = "Wallet address: " + account;
-
-          // 🔹 Lecture du solde ETH
-          const balanceWei = await window.ethereum.request({
-            method: "eth_getBalance",
-            params: [account, "latest"]
-          });
-          const balanceEth = parseFloat(parseInt(balanceWei, 16) / 1e18).toFixed(4);
-          walletBalance.textContent = "Balance: " + balanceEth + " ETH";
-
-          // 🔹 Lecture du réseau actuel
-          const chainId = await window.ethereum.request({ method: "eth_chainId" });
-          const network = getNetworkName(chainId);
-          networkName.textContent = "Network: " + network + " (" + chainId + ")";
-
-          // 🔹 Si l'utilisateur change de réseau → mise à jour auto
-          window.ethereum.on("chainChanged", () => window.location.reload());
-        } else {
-          statusText.textContent = "Not connected";
-          statusText.style.color = "red";
-          walletAddress.textContent = "";
-          walletBalance.textContent = "";
-          networkName.textContent = "";
-        }
-      } catch (error) {
-        console.error(error);
-        statusText.textContent = "Not connected";
-        statusText.style.color = "red";
-        walletAddress.textContent = "";
-        walletBalance.textContent = "";
-        networkName.textContent = "";
-      }
-    }
-
-    // Fonction utilitaire : convertir le chainId en nom de réseau
-    function getNetworkName(chainId) {
-      switch (chainId) {
-        case "0x1": return "Ethereum Mainnet";
-        case "0x5": return "Goerli Testnet";
-        case "0xaa36a7": return "Sepolia Testnet";
-        case "0x89": return "Polygon Mainnet";
-        case "0x13881": return "Polygon Mumbai Testnet";
-        case "0xa4b1": return "Arbitrum One";
-        case "0x66eed": return "Arbitrum Sepolia";
-        case "0x38": return "Binance Smart Chain";
-        case "0x61": return "BSC Testnet";
-        default: return "Unknown Network";
-      }
-    }
-
-    connectButton.addEventListener("click", connectWallet);
-  </script>
+  <script src="./javascript/connectwallet.js"></script>
+  <script src="./javascript/tokenReader.js"></script>
 </body>
 </html>
