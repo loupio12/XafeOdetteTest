@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Connexion / Création de compte</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; }
-    form { margin-bottom: 2rem; }
-    input { display: block; margin: 0.5rem 0; padding: 0.5rem; width: 250px; }
-    button { padding: 0.5rem 1rem; }
-    .message { margin: 0.5rem 0; padding: 0.5rem; border-radius: 4px; }
-    .error { background-color: #f8d7da; color: #721c24; }
-    .success { background-color: #d4edda; color: #155724; }
-  </style>
-  <script type="module" src="app.js" defer></script>
-</head>
-<body>
-  <h1>Mon Application</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xafe Pay Exchange</title>
+    <meta name="description" content="Page d'inscription et de connexion" />
 
-  <div id="form-container">
-    <!-- Connexion -->
-    <form id="login-form">
-      <h2>Connexion</h2>
-      <div id="login-message" class="message"></div>
-      <input type="email" id="login-email" placeholder="Email" required />
-      <input type="password" id="login-password" placeholder="Mot de passe" required />
-      <button type="submit">Se connecter</button>
-      <p>Pas encore de compte ? <a href="#" id="show-register">Créer un compte</a></p>
-    </form>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Création de compte -->
-    <form id="register-form" style="display:none;">
-      <h2>Créer un compte</h2>
-      <div id="register-message" class="message"></div>
-      <input type="text" id="register-nom" placeholder="Nom complet" required />
-      <input type="email" id="register-email" placeholder="Email" required />
-      <input type="password" id="register-password" placeholder="Mot de passe" required />
-      <button type="submit">Créer un compte</button>
-      <p>Déjà un compte ? <a href="#" id="show-login">Se connecter</a></p>
-    </form>
-  </div>
-</body>
+    <!-- CSS externe -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="form-container">
+      <h1>Xafe Pay Exchange</h1>
+
+      <!-- Connexion -->
+      <form id="login-form">
+        <h2>Connexion</h2>
+        <div id="login-message" class="message"></div>
+        <input type="email" id="login-email" placeholder="Email" required />
+        <input type="password" id="login-password" placeholder="Mot de passe" required />
+        <button type="submit">Se connecter</button>
+        <p>Pas encore de compte ? <a href="#" id="show-register">Créer un compte</a></p>
+      </form>
+
+      <script>
+        document.getElementById('login-form').addEventListener('submit', function(e){
+          e.preventDefault();
+          const u = document.getElementById('login-email').value;
+          const p = document.getElementById('login-password').value;
+          const msg = document.getElementById('login-message');
+
+          if (u === DEMO_USER && p === DEMO_PASS) {
+            // Connexion réussie -> afficher wallet.html
+            window.location.href = 'wallet.html';
+          } else {
+            msg.textContent = 'Identifiant ou mot de passe incorrect.';
+          }
+        });
+      </script>
+
+      <!-- Création de compte -->
+      <form id="register-form" style="display:none;">
+        <h2>Créer un compte</h2>
+        <div id="register-message" class="message"></div>
+        <input type="text" id="register-nom" placeholder="Nom complet" required />
+        <input type="email" id="register-email" placeholder="Email" required />
+        <input type="password" id="register-password" placeholder="Mot de passe" required />
+        <button type="submit">Créer un compte</button>
+        <p>Déjà un compte ? <a href="#" id="show-login">Se connecter</a></p>
+      </form>
+    </div>
+
+    <script type="module" src="app.js" defer></script>
+  </body>
 </html>

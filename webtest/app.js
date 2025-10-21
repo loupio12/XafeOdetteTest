@@ -29,6 +29,37 @@ showLogin.addEventListener('click', (e) => {
   registerMessage.innerHTML = '';
 });
 
+// --- Connexion ---
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginMessage.innerHTML = '';
+  loginMessage.className = 'message';
+
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+
+  loginMessage.textContent = 'Connexion en cours...';
+
+  try {
+    const { data: user, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      loginMessage.className = 'message error';
+      loginMessage.textContent = error.message;
+      return;
+    }
+
+    loginMessage.className = 'message success';
+    loginMessage.textContent = `Connecté en tant que ${user.user.email} 🎉`;
+    window.location.href = '/./wallet/wallet.html';
+    loginForm.reset();
+  } catch (err) {
+    console.error('Erreur lors de la connexion:', err);
+    loginMessage.className = 'message error';
+    loginMessage.textContent = err.message;
+  }
+});
+
 // --- Création de compte ---
 registerForm.addEventListener('submit', async (e) => {
   e.preventDefault();

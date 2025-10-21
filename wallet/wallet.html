@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xafe Wallet Interface</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="wallet.css">
+  </head>
+  <body>
+    <div id="wallet-app">
+      <h1>cXAF Interface (Test)</h1>
+
+      <section>
+        <div class="form-row">
+          <button id="connect-wallet">Connect Wallet</button>
+        </div>
+        <p id="wallet-status">Not connected</p>
+      </section>
+
+      <hr />
+
+      <section>
+        <h2>Read</h2>
+        <div class="form-row">
+          <label>Contract address:</label>
+          <input type="text" id="contract-address" placeholder="contract address" />
+          <button id="load-contract">Load</button>
+        </div>
+        <div class="form-row">
+          <button id="get-decimals">Get Decimals</button>
+          <button id="get-balance">Get My Balance</button>
+        </div>
+      </section>
+
+      <hr />
+
+      <section>
+        <h2>Actions</h2>
+        <div class="form-row">
+          <label>Mint amount (raw units, 6 decimals):</label>
+          <input type="text" id="mint-amount" placeholder="0" />
+          <label>FiatRef:</label>
+          <input type="text" id="fiat-ref" placeholder="e.g. USD" />
+        </div>
+        <button id="mint-button">Mint (only minter)</button>
+      </section>
+
+      <!-- ✅ Bouton de déconnexion en bas de page -->
+      <footer style="text-align: center; margin-top: 40px;">
+        <button id="disconnect-wallet">Disconnect</button>
+      </footer>
+    </div>
+
+    <script type="module" src="wallet.js"></script>
+  </body>
+</html>
